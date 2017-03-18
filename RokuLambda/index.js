@@ -1,11 +1,10 @@
-var APP_ID = "<your applicationID"; //replace this with your app ID to make use of APP_ID verification
+var APP_ID = "<your id here""; //replace this with your app ID to make use of APP_ID verification
 
 var AlexaSkill = require("./AlexaSkill");
-var serverinfo = require("./serverinfo");
 var http = require("http");
 
-if (serverinfo.host == "127.0.0.1") {
-    throw "Default hostname found, edit your serverinfo.js file to include your server's external IP address";
+if (process.env.HOST == "127.0.0.1") {
+    throw "Default hostname found, edit your environment variable HOST to include your server's external IP address";
 }
 
 var roku = function () {
@@ -17,8 +16,8 @@ roku.prototype.constructor = roku;
 
 function sendCommand(path,body,callback) {
     var opt = {
-        host:serverinfo.host,
-		port:serverinfo.port,
+        host:process.env.HOST,
+		port:process.env.PORT,
         path: path,
         method: 'POST',
     };
